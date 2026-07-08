@@ -1,0 +1,13 @@
+<h1>Мои проекты</h1>
+
+<% if @projects.any? %>
+  <ul>
+    <% @projects.each do |project| %>
+      <li><%= link_to project.title, project %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>У вас пока нет проектов. <%= link_to "Создать первый проект", new_project_path %></p>
+<% end %>
+
+<%= link_to "Новый проект", new_project_path %>

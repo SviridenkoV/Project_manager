@@ -1,0 +1,7 @@
+<h1><%= @project.title %></h1>
+
+<p><%= @project.description %></p>
+
+<%= link_to "Редактировать", edit_project_path(@project) %>
+<%= button_to "Удалить", @project, method: :delete, data: { confirm: "Точно?" } %>
+<%= link_to "Назад к проектам", projects_path %>

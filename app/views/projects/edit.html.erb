@@ -1,0 +1,17 @@
+<h1>Редактировать проект</h1>
+
+<%= form_with model: @project do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <%= form.submit "Обновить проект" %>
+<% end %>
+
+<%= link_to "Назад", @project %>
