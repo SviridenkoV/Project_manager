@@ -1,0 +1,16 @@
+<h1>Задачи проекта: <%= @project.title %></h1>
+
+<%= link_to "Новая задача", new_project_task_path(@project) %>
+
+<ul>
+  <% @tasks.each do |task| %>
+    <li>
+      <strong><%= task.title %></strong> — <%= task.status %>
+      <p><%= task.description %></p>
+      <%= link_to "Редактировать", edit_project_task_path(@project, task) %>
+      <%= button_to "Удалить", project_task_path(@project, task), method: :delete, data: { confirm: "Точно?" } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "Назад к проекту", @project %>
