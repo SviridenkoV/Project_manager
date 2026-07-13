@@ -2,15 +2,22 @@
 
 <%= link_to "Новая задача", new_project_task_path(@project) %>
 
-<ul>
-  <% @tasks.each do |task| %>
-    <li>
-      <strong><%= task.title %></strong> — <%= task.status %>
-      <p><%= task.description %></p>
-      <%= link_to "Редактировать", edit_project_task_path(@project, task) %>
-      <%= button_to "Удалить", project_task_path(@project, task), method: :delete, data: { confirm: "Точно?" } %>
-    </li>
+<div style="display: flex; gap: 20px; margin-top: 20px;">
+  <% Task.statuses.keys.each do |status| %>
+    <div style="flex: 1; border: 1px solid #ccc; padding: 10px; border-radius: 8px; min-height: 200px;">
+      <h3><%= status.humanize %></h3>
+      <ul>
+        <% @tasks_by_status[status]&.each do |task| %>
+          <li style="margin-bottom: 10px; padding: 10px; background: #f9f9f9; border-radius: 4px;">
+            <strong><%= task.title %></strong>
+            <p><%= task.description %></p>
+            <%= link_to "Редактировать", edit_project_task_path(@project, task) %>
+            <%= button_to "Удалить", project_task_path(@project, task), method: :delete, data: { confirm: "Точно?" } %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
-</ul>
+</div>
 
 <%= link_to "Назад к проекту", @project %>

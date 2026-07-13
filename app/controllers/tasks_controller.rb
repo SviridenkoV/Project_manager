@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = @project.tasks
+    @tasks_by_status = @tasks.group_by(&:status)
   end
 
   def new

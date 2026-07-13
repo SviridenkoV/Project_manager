@@ -20,6 +20,15 @@
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+
+    <% if user_signed_in? %>
+  <span><%= current_user.email %></span>
+  <%= button_to "Выйти", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= link_to "Войти", new_user_session_path %>
+  <%= link_to "Регистрация", new_user_registration_path %>
+<% end %>
+
   </head>
 
   <body>
