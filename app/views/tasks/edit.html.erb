@@ -12,8 +12,7 @@
   </div>
 
   <div>
-    <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.map { |s| [s.humanize, s] } %>
+    <p><strong>Status:</strong> <%= @task.status.humanize %></p>
   </div>
 
   <%= form.submit "Обновить задачу" %>
