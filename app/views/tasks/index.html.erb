@@ -11,6 +11,14 @@
           <li style="margin-bottom: 10px; padding: 10px; background: #f9f9f9; border-radius: 4px;">
             <strong><%= task.title %></strong>
             <p><%= task.description %></p>
+
+            <p style="font-size: 12px; color: #666;"><%= task.transitions_hint %></p>
+
+            <%= form_with url: project_task_path(@project, task), method: :patch, local: true do |f| %>
+              <%= f.select :status, Task.statuses.keys.map { |s| [s.humanize, s] }, selected: task.status %>
+              <%= f.submit "Изменить статус" %>
+            <% end %>
+
             <%= link_to "Редактировать", edit_project_task_path(@project, task) %>
             <%= button_to "Удалить", project_task_path(@project, task), method: :delete, data: { confirm: "Точно?" } %>
           </li>

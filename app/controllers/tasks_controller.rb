@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   end
 
   def new
-    @task = @project.tasks.build   # ← здесь одна задача, не массив
+    @task = @project.tasks.build
   end
 
   def create
@@ -27,10 +27,11 @@ end
   def update
     @task = @project.tasks.find(params[:id])
 
-    if @task.update(task_params)
-      redirect_to project_tasks_path(@project), notice: "Задача обновлена!"
+    if @task.can_transition_to?(params[:status])
+      @task.update(status: params[:status])
+      redirect_to project_tasks_path(@project), notice: "Статус обновлён!"
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to project_tasks_path(@project), alert: "Нельзя перейти в этот статус"
     end
   end
 
