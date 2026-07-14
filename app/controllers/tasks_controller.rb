@@ -27,8 +27,8 @@ end
   def update
     @task = @project.tasks.find(params[:id])
 
-    if @task.can_transition_to?(params[:task][:status])
-      @task.update(status: params[:task][:status])
+    if @task.can_transition_to?(params[:status])
+      @task.update(status: params[:status])
       redirect_to project_tasks_path(@project), notice: "Статус обновлён!"
     else
       redirect_to project_tasks_path(@project), alert: "Нельзя перейти в этот статус"

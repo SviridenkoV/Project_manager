@@ -19,7 +19,7 @@ RSpec.describe "Tasks", type: :request do
 
   it "обновляет статус задачи" do
     task = Task.create(title: "Задача", status: "to_do", project: project)
-    patch project_task_path(project, task), params: { task: { status: "in_progress" } }
+    patch project_task_path(project, task), params: { status: "in_progress" }
     expect(task.reload.status).to eq("in_progress")
   end
 
