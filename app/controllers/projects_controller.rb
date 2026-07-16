@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = current_user.projects
+    if current_user
+      @projects = current_user.projects
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def new

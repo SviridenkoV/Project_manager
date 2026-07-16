@@ -1,26 +1,26 @@
 <h1><%= @task.title %></h1>
 
-<p><strong>Описание:</strong> <%= @task.description %></p>
+<p><strong><%= t('views.tasks.show.description') %>:</strong> <%= @task.description %></p>
 
 <p>
-  <strong>Статус:</strong>
+  <strong><%= t('views.tasks.show.status') %>:</strong>
   <span class="badge badge-<%= @task.status %>">
-    <%= @task.status.humanize %>
+    <%= t("statuses.#{@task.status}") %>
   </span>
 </p>
 
 <p>
-  <strong>Приоритет:</strong>
+  <strong><%= t('views.tasks.show.priority') %>:</strong>
   <span class="priority-badge priority-<%= @task.priority %>">
-    <%= @task.priority&.humanize || "Средний" %>
+    <%= t("priorities.#{@task.priority}") %>
   </span>
 </p>
 
 <% service = StatusTransitionService.new(@task) %>
-<p><strong>Подсказка по статусам:</strong> <%= service.hint %></p>
+<p><strong><%= t('views.tasks.show.hint') %>:</strong> <%= service.hint %></p>
 
 <div style="margin-top: 20px;">
-  <%= link_to "Редактировать", edit_project_task_path(@project, @task), class: "btn btn-secondary" %>
-  <%= button_to "Удалить", project_task_path(@project, @task), method: :delete, data: { confirm: "Точно?" }, class: "btn btn-danger" %>
-  <%= link_to "Назад к задачам", project_tasks_path(@project), class: "btn btn-outline" %>
+  <%= link_to t('views.tasks.show.edit'), edit_project_task_path(@project, @task), class: "btn btn-secondary" %>
+  <%= button_to t('views.tasks.show.delete'), project_task_path(@project, @task), method: :delete, data: { confirm: "Точно?" }, class: "btn btn-danger" %>
+  <%= link_to t('views.tasks.show.back'), project_tasks_path(@project), class: "btn btn-outline" %>
 </div>

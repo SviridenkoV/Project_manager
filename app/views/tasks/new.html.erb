@@ -1,4 +1,4 @@
-<h1>Новая задача</h1>
+<h1><%= t('views.tasks.new.title') %></h1>
 
 <%= form_with model: [@project, @task] do |form| %>
   <div>
@@ -13,15 +13,15 @@
 
   <div>
     <%= form.label :status %>
-    <%= form.select :status, Task::STATUSES.map { |s| [s.humanize, s] } %>
+    <%= form.select :status, Task::STATUSES.map { |s| [t("statuses.#{s}"), s] } %>
   </div>
 
   <div>
     <%= form.label :priority %>
-    <%= form.select :priority, Task::PRIORITIES.map { |p| [p.humanize, p] } %>
+    <%= form.select :priority, Task::PRIORITIES.map { |p| [t("priorities.#{p}"), p] } %>
   </div>
 
-  <%= form.submit "Создать задачу" %>
+  <%= form.submit t('helpers.submit.task.create') %>
 <% end %>
 
-<%= link_to "Назад к задачам", project_tasks_path(@project) %>
+<%= link_to t('views.tasks.new.back'), project_tasks_path(@project) %>

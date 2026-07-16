@@ -1,4 +1,4 @@
-<h1>Новый проект</h1>
+<h1><%= t('views.projects.new.title') %></h1>
 
 <%= form_with model: @project do |form| %>
   <div>
@@ -11,7 +11,7 @@
     <%= form.text_area :description %>
   </div>
 
-  <%= form.submit "Создать проект" %>
+  <%= form.submit t('helpers.submit.project.create') %>
 <% end %>
 
-<%= link_to "Назад", projects_path %>
+<%= link_to t('views.projects.new.back'), projects_path %>

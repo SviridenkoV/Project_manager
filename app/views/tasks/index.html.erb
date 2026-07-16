@@ -1,13 +1,13 @@
-<h1>Задачи проекта: <%= @project.title %></h1>
+<h1><%= t('views.tasks.index.title') %>: <%= @project.title %></h1>
 
-<%= link_to "Новая задача", new_project_task_path(@project), class: "btn btn-primary" %>
+<%= link_to t('views.tasks.index.new_task'), new_project_task_path(@project), class: "btn btn-primary" %>
 
 <div style="display: flex; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
   <% custom_order = [:to_do, :rejected, :in_progress, :in_testing, :done] %>
 
   <% custom_order.each do |status| %>
     <div style="flex: 1; border: 1px solid #ccc; padding: 10px; border-radius: 8px; min-height: 200px;">
-      <h3><%= status.to_s.humanize %></h3>
+      <h3><%= t("statuses.#{status}") %></h3>
 
       <ul style="list-style: none; padding: 0;">
         <% @tasks_by_status[status.to_s]&.each do |task| %>
@@ -17,15 +17,14 @@
             <br>
 
             <span class="priority-badge priority-<%= task.priority %>">
-              <%= task.priority&.humanize || "Средний" %>
+              <%= t("priorities.#{task.priority}") %>
             </span>
 
             <p><%= task.description %></p>
 
             <div style="margin-top: 6px;">
-              <%= link_to "Просмотр", project_task_path(@project, task), class: "btn btn-sm btn-secondary" %>
-              <%= link_to "Редактировать", edit_project_task_path(@project, task), class: "btn btn-sm btn-outline" %>
-              <%= button_to "Удалить", project_task_path(@project, task), method: :delete, data: { confirm: "Точно?" }, class: "btn btn-sm btn-danger" %>
+              <%= link_to t('views.tasks.show.edit'), edit_project_task_path(@project, task), class: "btn btn-sm btn-outline" %>
+              <%= button_to t('views.tasks.show.delete'), project_task_path(@project, task), method: :delete, data: { confirm: "Точно?" }, class: "btn btn-sm btn-danger" %>
             </div>
           </li>
         <% end %>
@@ -34,4 +33,4 @@
   <% end %>
 </div>
 
-<%= link_to "Назад к проекту", @project, class: "btn btn-outline mt-4" %>
+<%= link_to t('views.tasks.index.back_to_project'), @project, class: "btn btn-outline mt-4" %>

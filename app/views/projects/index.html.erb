@@ -1,4 +1,4 @@
-<h1>Мои проекты</h1>
+<h1><%= t('views.projects.index.title') %></h1>
 
 <% if @projects.any? %>
   <ul>
@@ -7,7 +7,7 @@
     <% end %>
   </ul>
 <% else %>
-  <p>У вас пока нет проектов. <%= link_to "Создать первый проект", new_project_path %></p>
+  <p><%= t('views.projects.index.no_projects') %> <%= link_to t('views.projects.index.create_first'), new_project_path %></p>
 <% end %>
 
-<%= link_to "Новый проект", new_project_path %>
+<%= link_to t('views.projects.index.new_project'), new_project_path %>

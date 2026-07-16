@@ -6,11 +6,17 @@ class ApplicationController < ActionController::Base
   rescue_from ArgumentError, with: :argument_error
   rescue_from StandardError, with: :internal_server_error
 
+  before_action :set_locale
+
   private
 
   def record_not_found(exception)
     render_error("Запись не найдена", :not_found, exception)
   end
+
+  def default_url_options
+  { locale: I18n.locale }
+end
 
   def record_invalid(exception)
     render_error("Ошибка валидации: #{exception.record.errors.full_messages.join(', ')}", :unprocessable_entity, exception)
@@ -33,4 +39,14 @@ class ApplicationController < ActionController::Base
       format.json { render json: { error: message }, status: status }
     end
   end
+
+
+def set_locale
+  I18n.locale = params[:locale] || extract_locale_from_accept_language_header || :ru
+end
+
+def extract_locale_from_accept_language_header
+  request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/^[a-z]{2}/)&.first
+end
+
 end

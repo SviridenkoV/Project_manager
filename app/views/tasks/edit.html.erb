@@ -1,4 +1,4 @@
-<h1>Редактировать задачу</h1>
+<h1><%= t('views.tasks.edit.title') %></h1>
 
 <%= form_with model: [@project, @task] do |form| %>
   <div>
@@ -17,16 +17,16 @@
     <% service = StatusTransitionService.new(@task) %>
     <% available_statuses = service.available_statuses %>
 
-    <%= form.select :status, available_statuses.map { |s| [s.humanize, s] }, selected: @task.status %>
+    <%= form.select :status, available_statuses.map { |s| [t("statuses.#{s}"), s] }, selected: @task.status %>
   </div>
 
   <div>
     <%= form.label :priority %>
-    <%= form.select :priority, Task::PRIORITIES.map { |p| [p.humanize, p] }, selected: @task.priority %>
+    <%= form.select :priority, Task::PRIORITIES.map { |p| [t("priorities.#{p}"), p] }, selected: @task.priority %>
   </div>
 
-  <%= form.submit "Обновить задачу", class: "btn btn-primary" %>
+  <%= form.submit t('helpers.submit.task.update'), class: "btn btn-primary" %>
 <% end %>
 
-<%= link_to "Назад к задаче", project_task_path(@project, @task), class: "btn btn-secondary" %>
-<%= link_to "Назад к задачам", project_tasks_path(@project), class: "btn btn-outline" %>
+<%= link_to t('views.tasks.edit.back_to_task'), project_task_path(@project, @task), class: "btn btn-secondary" %>
+<%= link_to t('views.tasks.edit.back_to_tasks'), project_tasks_path(@project), class: "btn btn-outline" %>

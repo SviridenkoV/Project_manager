@@ -1,78 +1,17 @@
 ru:
-  hello: "Привет"
-  layouts:
-    application:
-      title: "Project Manager"
-      sign_in: "Войти"
-      sign_up: "Зарегистрироваться"
-      sign_out: "Выйти"
-      my_projects: "Мои проекты"
-
-  projects:
-    index:
-      title: "Мои проекты"
-      new_project: "Новый проект"
-      no_projects: "У вас пока нет проектов"
-      create_first: "Создать первый проект"
-      back: "Назад к проектам"
-    show:
-      tasks: "Задачи"
-      add_task: "Добавить задачу"
-      edit: "Редактировать"
-      delete: "Удалить"
-      back_to_projects: "Назад к проектам"
-    new:
-      title: "Новый проект"
-      submit: "Создать проект"
-      back: "Назад"
-    edit:
-      title: "Редактировать проект"
-      submit: "Обновить проект"
-      back: "Назад к проекту"
-
-  tasks:
-    index:
-      title: "Задачи проекта:"
-      new_task: "Новая задача"
-      back_to_project: "Назад к проекту"
-      statuses:
-        to_do: "К выполнению"
-        in_progress: "В работе"
-        in_testing: "Тестирование"
-        rejected: "Отклонено"
-        done: "Готово"
-      priorities:
-        critical: "Критический"
-        high: "Высокий"
-        medium: "Средний"
-        low: "Низкий"
-      transitions_hint: "Подсказка по статусам"
-      no_tasks: "Нет задач"
-    new:
-      title: "Новая задача"
-      submit: "Создать задачу"
-      back_to_tasks: "Назад к задачам"
-    edit:
-      title: "Редактировать задачу"
-      submit: "Обновить задачу"
-      back_to_task: "Назад к задаче"
-      back_to_tasks: "Назад к задачам"
-    show:
-      description: "Описание"
-      status: "Статус"
-      priority: "Приоритет"
-      transitions_hint: "Доступные переходы"
-      edit: "Редактировать"
-      delete: "Удалить"
-      back_to_tasks: "Назад к задачам"
-
-  labels:
-    title: "Название"
-    description: "Описание"
-    status: "Статус"
-    priority: "Приоритет"
-    submit: "Сохранить"
-
+  activerecord:
+    models:
+      project: "Проект"
+      task: "Задача"
+    attributes:
+      project:
+        title: "Название"
+        description: "Описание"
+      task:
+        title: "Название"
+        description: "Описание"
+        status: "Статус"
+        priority: "Приоритет"
   helpers:
     submit:
       project:
@@ -81,15 +20,114 @@ ru:
       task:
         create: "Создать задачу"
         update: "Обновить задачу"
-
-  flashes:
-    notice:
-      project_created: "Проект создан!"
-      project_updated: "Проект обновлён!"
-      project_deleted: "Проект удалён!"
-      task_created: "Задача создана!"
-      task_updated: "Задача обновлена!"
-      task_deleted: "Задача удалена!"
-      status_updated: "Статус обновлён!"
-    alert:
-      cannot_transition: "Нельзя перейти в этот статус"
+  views:
+    projects:
+      index:
+        title: "Мои проекты"
+        no_projects: "У вас пока нет проектов."
+        create_first: "Создать первый проект"
+        new_project: "Новый проект"
+      show:
+        tasks: "Перейти к задачам"
+        edit: "Редактировать"
+        delete: "Удалить"
+        back: "Назад к проектам"
+      edit:
+        title: "Редактировать проект"
+        back: "Назад"
+      new:
+        title: "Новый проект"
+        back: "Назад к проектам"
+    tasks:
+      index:
+        title: "Задачи проекта"
+        new_task: "Новая задача"
+        back_to_project: "Назад к проекту"
+        no_tasks: "Нет задач"
+      show:
+        description: "Описание"
+        status: "Статус"
+        priority: "Приоритет"
+        hint: "Подсказка по статусам"
+        edit: "Редактировать"
+        delete: "Удалить"
+        back: "Назад к задачам"
+      edit:
+        title: "Редактировать задачу"
+        back_to_task: "Назад к задаче"
+        back_to_tasks: "Назад к задачам"
+      new:
+        title: "Новая задача"
+        back: "Назад к задачам"
+  statuses:
+    to_do: "К выполнению"
+    in_progress: "В работе"
+    in_testing: "Тестирование"
+    rejected: "Отклонено"
+    done: "Готово"
+  priorities:
+    critical: "Критический"
+    high: "Высокий"
+    medium: "Средний"
+    low: "Низкий"
+  transitions:
+    no_transitions: "Нет доступных переходов"
+    available: "Можно перейти в: %{statuses}"
+    devise:
+    confirmations:
+      confirmed: "Ваш адрес электронной почты успешно подтверждён."
+      send_instructions: "В течение нескольких минут вы получите письмо с инструкциями по подтверждению вашего адреса."
+      send_paranoid_instructions: "Если ваш адрес есть в нашей базе, вы получите письмо с инструкциями."
+    failure:
+      already_authenticated: "Вы уже вошли в систему."
+      inactive: "Ваш аккаунт ещё не активирован."
+      invalid: "Неверный email или пароль."
+      locked: "Ваш аккаунт заблокирован."
+      last_attempt: "У вас осталась одна попытка."
+      not_found_in_database: "Неверный email или пароль."
+      timeout: "Ваша сессия истекла. Пожалуйста, войдите снова."
+      unauthenticated: "Вам необходимо войти в систему или зарегистрироваться."
+      unconfirmed: "Вы должны подтвердить ваш email."
+    mailer:
+      confirmation_instructions:
+        subject: "Инструкции по подтверждению"
+      reset_password_instructions:
+        subject: "Инструкции по сбросу пароля"
+      unlock_instructions:
+        subject: "Инструкции по разблокировке"
+    omniauth_callbacks:
+      failure: "Не удалось войти с помощью %{kind}: %{reason}."
+      success: "Вход с помощью %{kind} выполнен успешно."
+    passwords:
+      no_token: "Вы не можете использовать эту страницу без токена сброса пароля. Если вы пришли по ссылке из письма, убедитесь, что вы скопировали полный URL."
+      send_instructions: "В течение нескольких минут вы получите письмо с инструкциями по сбросу пароля."
+      send_paranoid_instructions: "Если ваш адрес есть в нашей базе, вы получите письмо со ссылкой для сброса пароля."
+      updated: "Ваш пароль успешно изменён. Вы вошли в систему."
+      updated_not_active: "Ваш пароль успешно изменён."
+    registrations:
+      destroyed: "Ваш аккаунт был удалён. Спасибо за использование нашего сервиса."
+      signed_up: "Добро пожаловать! Вы успешно зарегистрировались."
+      signed_up_but_inactive: "Вы успешно зарегистрировались, но не можете войти, так как ваш аккаунт ещё не активирован."
+      signed_up_but_locked: "Вы успешно зарегистрировались, но не можете войти, так как ваш аккаунт заблокирован."
+      signed_up_but_unconfirmed: "На ваш email отправлено письмо с подтверждением. Пожалуйста, перейдите по ссылке, чтобы активировать аккаунт."
+      update_needs_confirmation: "Вы успешно обновили аккаунт, но необходимо подтвердить новый email."
+      updated: "Ваш аккаунт успешно обновлён."
+      updated_but_not_signed_in: "Ваш аккаунт обновлён, но вы вышли из системы."
+    sessions:
+      signed_in: "Вход выполнен успешно."
+      signed_out: "Выход выполнен успешно."
+      already_signed_out: "Вы уже вышли из системы."
+    unlocks:
+      send_instructions: "В течение нескольких минут вы получите письмо с инструкциями по разблокировке."
+      send_paranoid_instructions: "Если ваш аккаунт существует, вы получите письмо с инструкциями."
+      unlocked: "Ваш аккаунт был разблокирован. Пожалуйста, войдите."
+  errors:
+    messages:
+      already_confirmed: "уже подтверждён"
+      confirmation_period_expired: "должен быть подтверждён в течение %{period}, пожалуйста, запросите новый"
+      expired: "истёк, пожалуйста, запросите новый"
+      not_found: "не найден"
+      not_locked: "не заблокирован"
+      not_saved:
+        one: "1 ошибка не позволила сохранить %{resource}:"
+        other: "%{count} ошибок не позволили сохранить %{resource}:"
