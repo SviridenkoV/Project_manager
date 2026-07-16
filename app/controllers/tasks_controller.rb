@@ -2,7 +2,14 @@ class TasksController < ApplicationController
   before_action :set_project
 
   def index
-    @tasks = @project.tasks.order(:priority, :created_at)
+    @tasks = @project.tasks.order(
+      Arel.sql("CASE priority
+        WHEN 'critical' THEN 0
+        WHEN 'high' THEN 1
+        WHEN 'medium' THEN 2
+        WHEN 'low' THEN 3
+      END")
+    )
     @tasks_by_status = @tasks.group_by(&:status)
   end
 
@@ -50,6 +57,8 @@ end
   def set_project
     @project = Project.find(params[:project_id])
   end
+
+  private
 
   private
 

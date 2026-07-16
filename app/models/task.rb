@@ -1,10 +1,12 @@
 class Task < ApplicationRecord
   belongs_to :project
 
-  validates :title, presence: true
+  STATUSES = ["to_do", "in_progress", "in_testing", "rejected", "done"].freeze
+  PRIORITIES = ["critical", "high", "medium", "low"].freeze
 
-  enum :status, { to_do: 0, in_progress: 1, in_testing: 2, rejected: 3, done: 4 }
-  enum :priority, { critical: 0, high: 1, medium: 2, low: 3 }
+  validates :title, presence: true
+  validates :status, inclusion: { in: STATUSES }
+  validates :priority, inclusion: { in: PRIORITIES }
 
   def allowed_transitions
     {
@@ -27,13 +29,5 @@ class Task < ApplicationRecord
     else
       "Можно перейти в: #{allowed.map(&:humanize).join(', ')}"
     end
-  end
-
-  after_initialize :set_default_priority, if: :new_record?
-
-  private
-
-  def set_default_priority
-    self.priority ||= :medium
   end
 end

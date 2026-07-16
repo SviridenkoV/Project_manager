@@ -13,12 +13,12 @@
 
   <div>
     <%= form.label :status %>
-    <%= form.select :status, Task.statuses.keys.map { |s| [s.humanize, s] } %>
+    <%= form.select :status, Task::STATUSES.map { |s| [s.humanize, s] } %>
   </div>
 
   <div>
     <%= form.label :priority %>
-    <%= form.select :priority, Task.priorities.keys.map { |p| [p.humanize, p] } %>
+    <%= form.select :priority, Task::PRIORITIES.map { |p| [p.humanize, p] } %>
   </div>
 
   <%= form.submit "Создать задачу" %>
