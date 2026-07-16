@@ -3,15 +3,9 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
 
-  enum :status, {
-    to_do: 0,
-    in_progress: 1,
-    in_testing: 2,
-    rejected: 3,
-    done: 4
-  }
+  enum :status, { to_do: 0, in_progress: 1, in_testing: 2, rejected: 3, done: 4 }
+  enum :priority, { critical: 0, high: 1, medium: 2, low: 3 }
 
-  #логика изменений состояний
   def allowed_transitions
     {
       "to_do" => ["in_progress"],
@@ -26,9 +20,6 @@ class Task < ApplicationRecord
     allowed_transitions[status]&.include?(new_status) || false
   end
 
-  #здесь я решил добавить подскази пользователю в какие состояния можно переходить,
-  #а то, как будто, интуитивно тяжело будет догадаться :/
-
   def transitions_hint
     allowed = allowed_transitions[status] || []
     if allowed.empty?
@@ -37,5 +28,12 @@ class Task < ApplicationRecord
       "Можно перейти в: #{allowed.map(&:humanize).join(', ')}"
     end
   end
-  
+
+  after_initialize :set_default_priority, if: :new_record?
+
+  private
+
+  def set_default_priority
+    self.priority ||= :medium
+  end
 end

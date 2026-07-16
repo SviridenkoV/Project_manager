@@ -12,10 +12,20 @@
   </div>
 
   <div>
-    <p><strong>Status:</strong> <%= @task.status.humanize %></p>
+    <%= form.label :status %>
+
+    <% available_statuses = [@task.status] + @task.allowed_transitions[@task.status] %>
+
+    <%= form.select :status, available_statuses.map { |s| [s.humanize, s] }, selected: @task.status %>
   </div>
 
-  <%= form.submit "Обновить задачу" %>
+  <div>
+    <%= form.label :priority %>
+    <%= form.select :priority, Task.priorities.keys.map { |p| [p.humanize, p] }, selected: @task.priority %>
+  </div>
+
+  <%= form.submit "Обновить задачу", class: "btn btn-primary" %>
 <% end %>
 
-<%= link_to "Назад к задачам", project_tasks_path(@project) %>
+<%= link_to "Назад к задаче", project_task_path(@project, @task), class: "btn btn-secondary" %>
+<%= link_to "Назад к задачам", project_tasks_path(@project), class: "btn btn-outline" %>

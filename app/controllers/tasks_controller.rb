@@ -2,12 +2,16 @@ class TasksController < ApplicationController
   before_action :set_project
 
   def index
-    @tasks = @project.tasks
+    @tasks = @project.tasks.order(:priority, :created_at)
     @tasks_by_status = @tasks.group_by(&:status)
   end
 
   def new
     @task = @project.tasks.build
+  end
+
+  def show
+    @task = @project.tasks.find(params[:id])
   end
 
   def create
@@ -27,11 +31,10 @@ end
   def update
     @task = @project.tasks.find(params[:id])
 
-    if @task.can_transition_to?(params[:status])
-      @task.update(status: params[:status])
-      redirect_to project_tasks_path(@project), notice: "Статус обновлён!"
+    if @task.update(task_params)
+      redirect_to project_tasks_path(@project), notice: "Задача обновлена!"
     else
-      redirect_to project_tasks_path(@project), alert: "Нельзя перейти в этот статус"
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -48,8 +51,10 @@ end
     @project = Project.find(params[:project_id])
   end
 
+  private
+
   def task_params
-    params.require(:task).permit(:title, :description, :status)
+    params.require(:task).permit(:title, :description, :status, :priority)
   end
 
   

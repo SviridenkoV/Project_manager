@@ -3,6 +3,6 @@
 
 <%= link_to "Перейти к задачам", project_tasks_path(@project) %>
 
-<%= link_to "Редактировать", edit_project_path(@project) %>
+<p><%= link_to "Редактировать", edit_project_path(@project) %>
 <%= button_to "Удалить", @project, method: :delete, data: { confirm: "Точно?" } %>
-<%= link_to "Назад к проектам", projects_path %>
+<%= link_to "Назад к проектам", projects_path %></p>
