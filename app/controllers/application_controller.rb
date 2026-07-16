@@ -1,9 +1,36 @@
 class ApplicationController < ActionController::Base
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  protect_from_forgery with: :exception
 
-  # Changes to the importmap will invalidate the etag for HTML responses
-  stale_when_importmap_changes
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::RecordInvalid, with: :record_invalid
+  rescue_from ArgumentError, with: :argument_error
+  rescue_from StandardError, with: :internal_server_error
 
-  before_action :authenticate_user!
+  private
+
+  def record_not_found(exception)
+    render_error("Запись не найдена", :not_found, exception)
+  end
+
+  def record_invalid(exception)
+    render_error("Ошибка валидации: #{exception.record.errors.full_messages.join(', ')}", :unprocessable_entity, exception)
+  end
+
+  def argument_error(exception)
+    render_error("Ошибка: #{exception.message}", :bad_request, exception)
+  end
+
+  def internal_server_error(exception)
+    render_error("Внутренняя ошибка сервера. Попробуйте позже.", :internal_server_error, exception)
+  end
+
+  def render_error(message, status, exception = nil)
+    logger.error "Ошибка: #{message}"
+    logger.error exception.backtrace.join("\n") if exception
+
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: message }
+      format.json { render json: { error: message }, status: status }
+    end
+  end
 end

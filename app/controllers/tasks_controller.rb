@@ -37,11 +37,13 @@ end
 
   def update
     @task = @project.tasks.find(params[:id])
+    service = StatusTransitionService.new(@task)
 
-    if @task.update(task_params)
-      redirect_to project_tasks_path(@project), notice: "Задача обновлена!"
+    if params[:task][:status] && service.can_transition_to?(params[:task][:status])
+      service.transition_to!(params[:task][:status])
+      redirect_to project_tasks_path(@project), notice: "Статус обновлён!"
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to project_tasks_path(@project), alert: "Нельзя перейти в этот статус"
     end
   end
 
@@ -57,6 +59,8 @@ end
   def set_project
     @project = Project.find(params[:project_id])
   end
+
+  private
 
   private
 

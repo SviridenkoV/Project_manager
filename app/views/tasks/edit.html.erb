@@ -14,13 +14,16 @@
   <div>
     <%= form.label :status %>
 
-    <% available_statuses = [@task.status] + @task.allowed_transitions[@task.status] %>
+    <% service = StatusTransitionService.new(@task) %>
+    <% available_statuses = service.available_statuses %>
+
     <%= form.select :status, available_statuses.map { |s| [s.humanize, s] }, selected: @task.status %>
   </div>
 
   <div>
     <%= form.label :priority %>
     <%= form.select :priority, Task::PRIORITIES.map { |p| [p.humanize, p] }, selected: @task.priority %>
+  </div>
 
   <%= form.submit "Обновить задачу", class: "btn btn-primary" %>
 <% end %>

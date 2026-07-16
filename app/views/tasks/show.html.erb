@@ -16,7 +16,8 @@
   </span>
 </p>
 
-<p><strong>Подсказка по статусам:</strong> <%= @task.transitions_hint %></p>
+<% service = StatusTransitionService.new(@task) %>
+<p><strong>Подсказка по статусам:</strong> <%= service.hint %></p>
 
 <div style="margin-top: 20px;">
   <%= link_to "Редактировать", edit_project_task_path(@project, @task), class: "btn btn-secondary" %>

@@ -1,0 +1,95 @@
+ru:
+  hello: "Привет"
+  layouts:
+    application:
+      title: "Project Manager"
+      sign_in: "Войти"
+      sign_up: "Зарегистрироваться"
+      sign_out: "Выйти"
+      my_projects: "Мои проекты"
+
+  projects:
+    index:
+      title: "Мои проекты"
+      new_project: "Новый проект"
+      no_projects: "У вас пока нет проектов"
+      create_first: "Создать первый проект"
+      back: "Назад к проектам"
+    show:
+      tasks: "Задачи"
+      add_task: "Добавить задачу"
+      edit: "Редактировать"
+      delete: "Удалить"
+      back_to_projects: "Назад к проектам"
+    new:
+      title: "Новый проект"
+      submit: "Создать проект"
+      back: "Назад"
+    edit:
+      title: "Редактировать проект"
+      submit: "Обновить проект"
+      back: "Назад к проекту"
+
+  tasks:
+    index:
+      title: "Задачи проекта:"
+      new_task: "Новая задача"
+      back_to_project: "Назад к проекту"
+      statuses:
+        to_do: "К выполнению"
+        in_progress: "В работе"
+        in_testing: "Тестирование"
+        rejected: "Отклонено"
+        done: "Готово"
+      priorities:
+        critical: "Критический"
+        high: "Высокий"
+        medium: "Средний"
+        low: "Низкий"
+      transitions_hint: "Подсказка по статусам"
+      no_tasks: "Нет задач"
+    new:
+      title: "Новая задача"
+      submit: "Создать задачу"
+      back_to_tasks: "Назад к задачам"
+    edit:
+      title: "Редактировать задачу"
+      submit: "Обновить задачу"
+      back_to_task: "Назад к задаче"
+      back_to_tasks: "Назад к задачам"
+    show:
+      description: "Описание"
+      status: "Статус"
+      priority: "Приоритет"
+      transitions_hint: "Доступные переходы"
+      edit: "Редактировать"
+      delete: "Удалить"
+      back_to_tasks: "Назад к задачам"
+
+  labels:
+    title: "Название"
+    description: "Описание"
+    status: "Статус"
+    priority: "Приоритет"
+    submit: "Сохранить"
+
+  helpers:
+    submit:
+      project:
+        create: "Создать проект"
+        update: "Обновить проект"
+      task:
+        create: "Создать задачу"
+        update: "Обновить задачу"
+
+  flashes:
+    notice:
+      project_created: "Проект создан!"
+      project_updated: "Проект обновлён!"
+      project_deleted: "Проект удалён!"
+      task_created: "Задача создана!"
+      task_updated: "Задача обновлена!"
+      task_deleted: "Задача удалена!"
+      status_updated: "Статус обновлён!"
+    alert:
+      cannot_transition: "Нельзя перейти в этот статус"
