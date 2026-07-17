@@ -60,15 +60,7 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
-  private
-
-  private
-
-  private
-
   def task_params
     params.require(:task).permit(:title, :description, :status, :priority)
   end
-
-  
 end

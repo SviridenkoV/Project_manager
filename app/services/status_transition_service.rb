@@ -6,8 +6,8 @@ class StatusTransitionService
   def allowed_transitions
     {
       "to_do" => ["in_progress"],
-      "in_progress" => ["in_testing", "to_do"],
-      "in_testing" => ["done", "rejected"],
+      "in_progress" => %w[in_testing to_do],
+      "in_testing" => %w[done rejected],
       "done" => [],
       "rejected" => ["in_progress"]
     }
@@ -18,9 +18,7 @@ class StatusTransitionService
   end
 
   def transition_to!(new_status)
-    unless can_transition_to?(new_status)
-      raise ArgumentError, "Нельзя перейти из #{@task.status} в #{new_status}"
-    end
+    raise ArgumentError, "Нельзя перейти из #{@task.status} в #{new_status}" unless can_transition_to?(new_status)
 
     @task.update!(status: new_status)
   end

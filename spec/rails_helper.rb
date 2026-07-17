@@ -51,7 +51,7 @@ RSpec.configure do |config|
     config.include Devise::Test::ControllerHelpers, type: :controller
 
     config.before(:each, type: :system) do
-    driven_by :selenium_chrome_headless
+    driven_by :rack_test
   end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

@@ -15,11 +15,12 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options
-  { locale: I18n.locale }
-end
+    { locale: I18n.locale }
+  end
 
   def record_invalid(exception)
-    render_error("Ошибка валидации: #{exception.record.errors.full_messages.join(', ')}", :unprocessable_entity, exception)
+    render_error("Ошибка валидации: #{exception.record.errors.full_messages.join(', ')}", :unprocessable_entity,
+                 exception)
   end
 
   def argument_error(exception)
@@ -40,13 +41,11 @@ end
     end
   end
 
+  def set_locale
+    I18n.locale = params[:locale] || extract_locale_from_accept_language_header || :ru
+  end
 
-def set_locale
-  I18n.locale = params[:locale] || extract_locale_from_accept_language_header || :ru
-end
-
-def extract_locale_from_accept_language_header
-  request.env['HTTP_ACCEPT_LANGUAGE']&.scan(/^[a-z]{2}/)&.first
-end
-
+  def extract_locale_from_accept_language_header
+    request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first
+  end
 end

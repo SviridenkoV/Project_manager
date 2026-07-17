@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe TasksController, type: :controller do
   let(:user) { User.create(email: "test@test.com", password: "password") }
@@ -6,7 +6,6 @@ RSpec.describe TasksController, type: :controller do
   let(:task) { Task.create(title: "Задача", status: "to_do", priority: "medium", project: project) }
 
   before { sign_in user }
-
 
   describe "GET #index" do
     it "возвращает список задач" do
@@ -26,16 +25,16 @@ RSpec.describe TasksController, type: :controller do
 
   describe "POST #create" do
     it "создаёт задачу" do
-      expect {
+      expect do
         post :create, params: { project_id: project.id, task: { title: "Новая задача", status: "to_do", priority: "medium" } }
-      }.to change { Task.count }.by(1)
+      end.to change { Task.count }.by(1)
       expect(response).to redirect_to(project_tasks_path(project))
     end
 
     it "не создаёт задачу без названия" do
-      expect {
+      expect do
         post :create, params: { project_id: project.id, task: { title: "", status: "to_do", priority: "medium" } }
-      }.not_to change { Task.count }
+      end.not_to(change { Task.count })
       expect(response).to have_http_status(:unprocessable_entity)
     end
   end

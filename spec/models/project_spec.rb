@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Project, type: :model do
   let(:user) { User.create(email: "test@test.com", password: "password") }
@@ -20,7 +20,7 @@ RSpec.describe Project, type: :model do
 
   it "удаляет задачи при удалении проекта" do
     project = Project.create(title: "Тест", user: user)
-    task = Task.create(title: "Задача", status: "to_do", project: project)
+    Task.create(title: "Задача", status: "to_do", project: project)
     expect { project.destroy }.to change { Task.count }.by(-1)
   end
 end

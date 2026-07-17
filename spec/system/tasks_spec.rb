@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Tasks", type: :system do
   let(:user) { User.create(email: "test@test.com", password: "password") }
@@ -17,8 +17,11 @@ RSpec.describe "Tasks", type: :system do
 
     fill_in "task_title", with: "Моя задача"
     fill_in "task_description", with: "Описание задачи"
-    select "To do", from: "task_status"
-    select "Medium", from: "task_priority"
+
+    # Используй реальные значения из select
+    select "К выполнению", from: "task_status"
+    select "Средний", from: "task_priority"
+
     click_button "Создать задачу"
 
     expect(page).to have_content("Моя задача")
@@ -26,17 +29,19 @@ RSpec.describe "Tasks", type: :system do
   end
 
   it "изменяет статус задачи" do
-    task = Task.create(title: "Задача", status: "to_do", priority: "medium", project: project)
+    Task.create(title: "Задача", status: "to_do", priority: "medium", project: project)
 
     visit project_tasks_path(project)
-    select "In progress", from: "task_status"
+
+    # Используй реальное значение из select
+    select "В работе", from: "task_status"
     click_button "Изменить статус"
 
     expect(page).to have_content("Статус обновлён!")
   end
 
   it "удаляет задачу" do
-    task = Task.create(title: "Удаляемая задача", status: "to_do", priority: "medium", project: project)
+    Task.create(title: "Удаляемая задача", status: "to_do", priority: "medium", project: project)
 
     visit project_tasks_path(project)
     click_button "Удалить"

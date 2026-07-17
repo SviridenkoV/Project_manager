@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Devise", type: :request do
   it "показывает страницу регистрации" do
@@ -12,7 +12,7 @@ RSpec.describe "Devise", type: :request do
   end
 
   it "регистрирует пользователя" do
-    expect {
+    expect do
       post user_registration_path, params: {
         user: {
           email: "new@test.com",
@@ -20,11 +20,11 @@ RSpec.describe "Devise", type: :request do
           password_confirmation: "password"
         }
       }
-    }.to change { User.count }.by(1)
+    end.to change { User.count }.by(1)
   end
 
   it "не регистрирует с коротким паролем" do
-    expect {
+    expect do
       post user_registration_path, params: {
         user: {
           email: "new@test.com",
@@ -32,7 +32,7 @@ RSpec.describe "Devise", type: :request do
           password_confirmation: "123"
         }
       }
-    }.not_to change { User.count }
+    end.not_to(change { User.count })
   end
 
   it "логинит пользователя" do

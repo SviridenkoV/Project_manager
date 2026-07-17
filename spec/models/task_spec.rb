@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Task, type: :model do
   let(:user) { User.create(email: "test@test.com", password: "password") }
