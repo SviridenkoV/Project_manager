@@ -1,0 +1,12 @@
+--dir
+.
+--ignore
+vendor/
+--ignore
+tmp/
+--ignore
+node_modules/
+--ignore
+log/
+--ignore
+storage/

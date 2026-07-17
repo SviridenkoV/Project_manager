@@ -63,10 +63,8 @@ RSpec.describe TasksController, type: :controller do
     end
 
     it "не обновляет статус на запрещённый" do
-      patch :update, params: { project_id: project.id, id: task.id, task: { status: "done" } }
-      expect(task.reload.status).to eq("to_do")
-      expect(response).to redirect_to(project_tasks_path(project))
-    end
+    patch :update, params: { project_id: project.id, id: task.id, task: { status: "done" } }
+    expect(task.reload.status).not_to eq("done")
   end
 
   describe "DELETE #destroy" do

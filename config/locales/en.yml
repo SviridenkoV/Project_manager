@@ -40,6 +40,7 @@ en:
         back: "Back to projects"
     tasks:
       index:
+        view: "View"
         title: "Tasks of project"
         new_task: "New task"
         back_to_project: "Back to project"

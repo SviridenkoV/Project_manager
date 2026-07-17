@@ -45,6 +45,7 @@ ru:
         back_to_project: "Назад к проекту"
         no_tasks: "Нет задач"
       show:
+        view: "Просмотр"
         description: "Описание"
         status: "Статус"
         priority: "Приоритет"

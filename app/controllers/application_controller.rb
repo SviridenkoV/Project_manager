@@ -1,4 +1,9 @@
+# typed: false
+
+
 class ApplicationController < ActionController::Base
+  extend T::Sig
+
   protect_from_forgery with: :exception
 
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
@@ -8,29 +13,44 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
-  private
-
-  def record_not_found(exception)
-    render_error("Запись не найдена", :not_found, exception)
-  end
-
+  sig { returns(T::Hash[Symbol, T.untyped]) }
   def default_url_options
     { locale: I18n.locale }
   end
 
-  def record_invalid(exception)
-    render_error("Ошибка валидации: #{exception.record.errors.full_messages.join(', ')}", :unprocessable_entity,
-                 exception)
+  private
+
+  sig { params(exception: ActiveRecord::RecordNotFound).void }
+  def record_not_found(exception)
+    render_error("Запись не найдена", :not_found, exception)
   end
 
+  sig { params(exception: ActiveRecord::RecordInvalid).void }
+  def record_invalid(exception)
+    render_error(
+      "Ошибка валидации: #{exception.record.errors.full_messages.join(', ')}",
+      :unprocessable_entity,
+      exception
+    )
+  end
+
+  sig { params(exception: ArgumentError).void }
   def argument_error(exception)
     render_error("Ошибка: #{exception.message}", :bad_request, exception)
   end
 
+  sig { params(exception: StandardError).void }
   def internal_server_error(exception)
     render_error("Внутренняя ошибка сервера. Попробуйте позже.", :internal_server_error, exception)
   end
 
+  sig do
+    params(
+      message: String,
+      status: Symbol,
+      exception: T.nilable(StandardError)
+    ).void
+  end
   def render_error(message, status, exception = nil)
     logger.error "Ошибка: #{message}"
     logger.error exception.backtrace.join("\n") if exception
@@ -41,10 +61,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  sig { void }
   def set_locale
     I18n.locale = params[:locale] || extract_locale_from_accept_language_header || :ru
   end
 
+  sig { returns(T.nilable(String)) }
   def extract_locale_from_accept_language_header
     request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first
   end

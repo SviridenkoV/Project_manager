@@ -61,6 +61,9 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem 'sorbet', '~> 0.5.11799', require: false
+  gem 'sorbet-runtime'
+  gem 'tapioca', require: false
 end
 
 group :development do
