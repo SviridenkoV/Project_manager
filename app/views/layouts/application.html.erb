@@ -33,6 +33,14 @@
         <%= link_to "🇷🇺 Русский", url_for(locale: :ru) %> |
         <%= link_to "🇬🇧 English", url_for(locale: :en) %>
       </div>
+
+      <% if notice %>
+          <div class="flash flash-notice"><%= notice %></div>
+        <% end %>
+
+        <% if alert %>
+          <div class="flash flash-alert"><%= alert %></div>
+        <% end %>
   </head>
 
   <body>
@@ -40,4 +48,5 @@
 
     
   </body>
+  
 </html>

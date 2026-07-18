@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe "Projects", type: :system do
   let(:user) { User.create(email: "test@test.com", password: "password") }
@@ -7,7 +7,7 @@ RSpec.describe "Projects", type: :system do
     visit new_user_session_path
     fill_in "Email", with: user.email
     fill_in "Password", with: "password"
-    click_button "Log in"
+    click_button "Войти"   # ← изменил
   end
 
   it "создаёт новый проект" do
@@ -17,7 +17,6 @@ RSpec.describe "Projects", type: :system do
     click_button "Создать проект"
 
     expect(page).to have_content("Мой проект")
-    # Проверяем, что flash появился
     expect(page).to have_content("Проект создан!")
   end
 
