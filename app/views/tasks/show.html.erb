@@ -17,7 +17,7 @@
 </p>
 
 <% service = StatusTransitionService.new(@task) %>
-<p><strong><%= t('views.tasks.show.hint') %>:</strong> <%= service.hint %></p>
+
 
 <div style="margin-top: 20px;">
   <%= link_to t('views.tasks.show.edit'), edit_project_task_path(@project, @task), class: "btn btn-secondary" %>

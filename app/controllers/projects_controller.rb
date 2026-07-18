@@ -1,5 +1,4 @@
 # typed: strict
-require 'active_record/relation'
 
 class ProjectsController < ApplicationController
   extend T::Sig
