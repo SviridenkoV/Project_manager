@@ -522,7 +522,7 @@ select {
 input:autofill,
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 30px rgba(26, 26, 46, 0.9) inset !important;
-  -webkit-text-fill-color: #f1f5f9 !important;
+  -webkit-text-fill-color: #c28af7 !important;
 }
 
 input:hover, textarea:hover, select:hover {

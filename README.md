@@ -31,6 +31,8 @@ Users can create projects, manage tasks, and track task statuses using a Kanban-
 - Devise (authentication)
 - RSpec (testing)
 - FactoryBot + Faker (test data)
+- RuboCop (code linting)
+- Sorbet (static type checking, partial)
 
 ---
 
